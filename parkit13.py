@@ -1,17 +1,15 @@
 import time
 import asterisk.manager
-from flask import Flask, render_template_string, Response, request
+from flask import Flask, render_template_string, Response
 
 app = Flask(__name__)
-
-parked_calls = []
 
 def event_listener(event, manager):
     if event.name.lower() == 'parkedcall':
         try:
             global parked_calls
             parked_calls.append({
-                'Lot': event['ParkingSpace'],  # Use 'ParkingSpace' instead of 'ParkingLot'
+                'Lot': event['ParkingSpace'],
                 'CallerID': event['ParkeeCallerIDNum']
             })
         except KeyError as e:
@@ -20,14 +18,14 @@ def event_listener(event, manager):
 
 def get_parked_calls():
     global parked_calls
-    parked_calls.clear()
+    parked_calls = []
 
     manager = asterisk.manager.Manager()
 
     try:
         # Connect and log in to AMI
         manager.connect('192.168.10.49', 5038)
-        manager.login('admin', 'password')
+        manager.login('admin', 'ogZlSNOxemZ5')
 
         # Register an event listener
         manager.register_event('*', event_listener)
@@ -39,30 +37,13 @@ def get_parked_calls():
         time.sleep(2)  # Example delay
 
         manager.logoff()
+        return parked_calls
 
     except asterisk.manager.ManagerException as e:
         print('AMI Error:', e)
+        return []
 
-    return parked_calls
-
-@app.route('/services')
-def services_menu():
-    xml = '''<?xml version="1.0" encoding="UTF-8"?>
-    <CiscoIPPhoneMenu>
-        <Title>Services</Title>
-        <MenuItem>
-            <Name>Parked Calls</Name>
-            <URL>{url_root}parkedcalls</URL>
-        </MenuItem>
-    </CiscoIPPhoneMenu>'''.format(url_root=request.url_root)
-
-    return Response(xml, mimetype='text/xml'), 200
-
-@app.route('/parkedcalls')
-def parked_calls_service():
-    calls = get_parked_calls()
-    xml = render_template_string(xml_template, parked_calls=calls)
-    return Response(xml, mimetype='text/xml'), 200
+# XML Template and Flask route as before
 
 xml_template = '''<?xml version="1.0" encoding="UTF-8"?>
 <CiscoIPPhoneDirectory>
@@ -70,14 +51,29 @@ xml_template = '''<?xml version="1.0" encoding="UTF-8"?>
     <Prompt>Select to see details</Prompt>
     {% for call in parked_calls %}
         <DirectoryEntry>
-        <Name>{{ call.CallerID }} (Line {% if call.Lot == '71' %}1{% elif call.Lot == '72' %}2{% elif call.Lot == '73' %}3{% else %}Unknown{% endif %})</Name>  <!-- Display Caller ID and Line number -->
-            <Telephone>{{ call.Lot }}</Telephone>
+        <Name>{{ call.CallerID }}</Name>
+        <Telephone>{{ get_line(call.Lot) }}</Telephone>
         </DirectoryEntry>
     {% endfor %}
 </CiscoIPPhoneDirectory>
 '''
-#Boop Line Display Branch
+
+# Function to get the Line based on the Parking Lot
+def get_line(parking_lot):
+    if parking_lot == '71':
+        return 'Line1'
+    elif parking_lot == '72':
+        return 'Line2'
+    elif parking_lot == '73':
+        return 'Line3'
+    else:
+        return parking_lot  # Default to the original parking lot number
+
+@app.route('/parkedcalls')
+def parked_calls_service():
+    parked_calls = get_parked_calls()
+    xml = render_template_string(xml_template, parked_calls=parked_calls, get_line=get_line)
+    return Response(xml, mimetype='text/xml'), 200
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
-
