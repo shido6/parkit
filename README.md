@@ -2,6 +2,7 @@
 flask app for listing parked calls
 
 # Using an old version of FreePBX 15 (?) 
+# Tested on FreePBX 15.0.23
 # Upgrade pip 
 ```
 yum install python36u-pip
