@@ -101,3 +101,5 @@ Jan 26 13:53:07 freepbx.sangoma.local python3[12005]: * Running on http://192.16
 <directoryURL>http://FREEPBXIP:5001/services</directoryURL>
 ```
 # Reboot Phone
+Settings > 7 > 5 > 1
+or send a sip notify, etc
