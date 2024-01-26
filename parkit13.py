@@ -24,8 +24,8 @@ def get_parked_calls():
 
     try:
         # Connect and log in to AMI
-        manager.connect('192.168.10.49', 5038)
-        manager.login('admin', 'ogZlSNOxemZ5')
+        manager.connect('localhost', 5038)
+        manager.login('admin', 'password')
 
         # Register an event listener
         manager.register_event('*', event_listener)
