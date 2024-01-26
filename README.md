@@ -114,3 +114,7 @@ or send a sip notify, etc
 
 # Troubleshooting
 Python3 in the asterisk venv needs to be executable!
+```
+ls -l /home/asterisk/myenv/bin/python3
+chmod +x /home/asterisk/myenv/bin/python3
+```
