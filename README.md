@@ -79,10 +79,6 @@ sudo systemctl enable my-parked-calls
 sudo systemctl status my-parked-calls
 
 
-#Run it!
-
-python parkit11.py
-
 # Add the URL this is using to your 88XX series phone SEPXXXXXXXXXXXX.cnf.xml
 
 <directoryURL>http://IPOFFLASKSERVERHERE:5001/services</directoryURL>
