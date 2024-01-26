@@ -98,6 +98,6 @@ Jan 26 13:53:07 freepbx.sangoma.local python3[12005]: * Running on http://192.16
 
 # Add the URL this is using to your 88XX series phone SEPXXXXXXXXXXXX.cnf.xml
 ```
-<directoryURL>http://$PROXY:5001/services</directoryURL>
+<directoryURL>http://FREEPBXIP:5001/services</directoryURL>
 ```
 # Reboot Phone
