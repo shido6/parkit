@@ -42,6 +42,13 @@ tar -zxvf myenv.tar.gz
 # Change ownership to asterisk from your user
 ```
 sudo chown -R asterisk:asterisk myenv
+sudo chown -R asterisk:asterisk /home/asterisk/myenv
+
+```
+# Add Execute Permissions
+```
+sudo chmod +x /var/lib/asterisk/scripts/parkit11.py
+chmod +x /home/asterisk/myenv/bin/python3
 ```
 # Create the Service
 ```
