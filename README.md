@@ -68,9 +68,13 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 
+# Reload the Daemon and enable the service
+
 sudo systemctl daemon-reload
 
 sudo systemctl enable my-parked-calls
+
+# Start the service
 
 sudo systemctl status my-parked-calls
 
