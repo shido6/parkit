@@ -67,10 +67,12 @@ WantedBy=multi-user.target
 ```
 sudo systemctl daemon-reload
 sudo systemctl enable my-parked-calls
-```
-# Start the service
-```
 sudo systemctl status my-parked-calls
+
+```
+# Start the service if you need to
+```
+sudo systemctl start my-parked-calls
 ```
 You should see
 ```
