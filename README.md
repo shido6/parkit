@@ -10,10 +10,11 @@ ln -s /usr/bin/python3.6 /usr/bin/python3
 python3 -m pip install --upgrade pip
 
 
-#
 # Install the prereqs and setup a virutal environment
 
 python -m venv myenv
+
+# Activate the virtual environment
 
 source myenv/bin/activate
 
@@ -23,6 +24,50 @@ pip install flask
 pip install pyst2
 
 Edit parkit to use your admin and password found in /etc/asterisk/manager.conf
+
+# Copy parkit11.py to /var/lib/asterisk/scripts/parkit11.py
+
+cp parkit11.py /var/lib/asterisk/scripts/parkit11.py
+
+Move the environment to the asterisk user folder
+
+tar cf myenv.tar myenv
+gzip myenv.tar.gz
+mv myenv.tar.gz /home/asterisk
+cd /home/asterisk
+tar -zxvf myenv.tar.gz
+
+# Change ownership to asterisk from your user
+
+sudo chown -R asterisk:asterisk myenv
+
+# Create the Service
+
+sudo nano /etc/systemd/system/my-parked-calls.service
+
+# Add the following to the file
+
+[Unit]
+Description=My Parked Calls Service
+After=network.target
+
+[Service]
+ExecStart=/home/asterisk/myenv/bin/python3 /var/lib/asterisk/scripts/parkit11.py
+WorkingDirectory=/var/lib/asterisk/scripts
+Restart=always
+User=asterisk
+Group=asterisk
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+sudo systemctl daemon-reload
+
+sudo systemctl enable my-parked-calls
+
+sudo systemctl status my-parked-calls
+
 
 #Run it!
 
