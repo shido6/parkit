@@ -25,7 +25,7 @@ pip install pyst2
 
 Edit parkit to use your admin and password found in /etc/asterisk/manager.conf
 
-# Copy parkit11.py to /var/lib/asterisk/scripts/parkit11.py
+# Copy to asterisk scripts 
 
 cp parkit11.py /var/lib/asterisk/scripts/parkit11.py
 
