@@ -27,7 +27,7 @@
               <sipPort>5060</sipPort>
               <securedSipPort>5061</securedSipPort>
             </ports>
-            <processNodeName>192.168.10.49</processNodeName>
+            <processNodeName>PATCHEDPBXIPHERE</processNodeName>
           </callManager>
         </member>
       </members>
@@ -341,7 +341,7 @@
   <authenticationURL></authenticationURL>
   <messagesURL></messagesURL>
   <servicesURL></servicesURL>
-  <directoryURL>http://192.168.10.49:5001/services</directoryURL>
+  <directoryURL>http://FLASKIP:5001/services</directoryURL>
   <idleURL></idleURL>
   <informationURL></informationURL>
   <proxyServerURL></proxyServerURL>
