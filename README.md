@@ -12,7 +12,7 @@ python3 -m pip install --upgrade pip
 
 # Install the prereqs and setup a virutal environment
 ```
-python -m venv myenv
+python3 -m venv myenv
 ```
 # Activate the virtual environment
 ```
