@@ -5,7 +5,11 @@ flask app for listing parked calls
 # Tested on FreePBX 15.0.23
 # Upgrade pip 
 ```
-yum install python36u-pip
+sudo su -
+```
+Enter your root password
+```
+yum install python36u-pip -y
 ln -s /usr/bin/python3.6 /usr/bin/python3
 python3 -m pip install --upgrade pip
 ```
@@ -20,6 +24,7 @@ source myenv/bin/activate
 ```
 ```
 pip install flask
+pip install --upgrade pip
 ```
 # Install the prereqs
 ```
@@ -29,6 +34,10 @@ Add your manager user and password found in your FreePBX /etc/asterisk/manager.c
 
 # Copy to asterisk scripts 
 ```
+```
+Get the GIT and copy the script to its final resting place
+```
+git clone
 cp parkit11.py /var/lib/asterisk/scripts/parkit11.py
 ```
 Move the environment to the asterisk user folder
