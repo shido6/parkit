@@ -33,7 +33,7 @@ cp parkit11.py /var/lib/asterisk/scripts/parkit11.py
 ```
 Move the environment to the asterisk user folder
 ```
-tar cf myenv.tar myenv
+tar cf myenv.tar ../myenv
 gzip myenv.tar.gz
 mv myenv.tar.gz /home/asterisk
 cd /home/asterisk
