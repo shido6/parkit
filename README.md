@@ -25,7 +25,7 @@ pip install flask
 ```
 pip install pyst2
 ```
-Edit parkit to use your admin and password found in /etc/asterisk/manager.conf
+Add your manager user and password found in your FreePBX /etc/asterisk/manager.conf to parkit.
 
 # Copy to asterisk scripts 
 ```
