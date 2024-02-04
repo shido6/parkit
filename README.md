@@ -1,3 +1,11 @@
+# Spoon Feed 2.0
+# Idiot Proofing Enabled
+
+# python3 ./${dontrunit} #Its not done
+
+
+# Manual, DIY Method
+
 # parkit version 11
 flask app for listing parked calls
 
