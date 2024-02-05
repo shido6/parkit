@@ -104,20 +104,31 @@ result = subprocess.call('sudo locate SEPF*.cnf.xml', shell=True, stdout=subproc
 # Step 3 and 4: Process and modify the XML files
 # current_ip = 'YOUR_CURRENT_IP'  # Replace with the actual current IP
 
-for file_path in result.stdout.splitlines():
-    try:
-        with open(file_path, 'r') as xml_file:
-            xml_content = xml_file.read()
-            
-            # Use regular expressions to find and replace the <directoryURL> tag
-            modified_xml_content = re.sub(r'<directoryURL>.*?</directoryURL>', '<directoryURL>http://%s:5001/services</directoryURL>' % current_ip, xml_content)
-        
-        # Save the modified content back to the XML file
-        with open(file_path, 'w') as modified_file:
-            modified_file.write(modified_xml_content)
+# Run updatedb to update the file database
+subprocess.call('sudo updatedb', shell=True)
 
-        print("Modified {}".format(file_path))
-    except Exception as e:
-       # print(f"Error processing {file_path}: {e}")
-        print("Error processing {}: {}".format(file_path, e))
-        
+# Find and update SEP<mac>.cnf.xml files
+locate_command = 'sudo locate SEP*.cnf.xml'
+result = subprocess.Popen(locate_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+stdout, stderr = result.communicate()
+
+if result.returncode == 0:
+    for file_path in stdout.splitlines():
+        try:
+            with open(file_path, 'r') as xml_file:
+                xml_content = xml_file.read()
+                
+                # Use regular expressions to find and replace the <directoryURL> tag
+                #modified_xml_content = re.sub(r'<directoryURL>.*?</directoryURL>', f'<directoryURL>http://{current_ip}:5001/services</directoryURL>', xml_content)
+		modified_xml_content = re.sub(r'<directoryURL>.*?</directoryURL>', '<directoryURL>http://%s:5001/services</directoryURL>' % current_ip, xml_content)
+            
+            # Save the modified content back to the XML file
+            with open(file_path, 'w') as modified_file:
+                modified_file.write(modified_xml_content)
+
+            print("Modified {}".format(file_path))
+        except Exception as e:
+            print("Error processing {}: {}".format(file_path, e))
+else:
+    print("Error executing 'sudo locate':", stderr)
+
