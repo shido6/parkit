@@ -121,6 +121,7 @@ Restart=always
 User=asterisk
 Group=asterisk
 RestartSec=5
+ExecStop=/bin/true
 
 [Install]
 WantedBy=multi-user.target
