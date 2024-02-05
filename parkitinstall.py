@@ -84,7 +84,7 @@ subprocess.call("sudo systemctl status my-parked-calls", shell=True)
 # Start the service if needed
 subprocess.call("sudo systemctl start my-parked-calls", shell=True)
 
-subprocess.call("sudo python ~/parkit/dirfix.py, shell=True)
+subprocess.call("sudo python ~/parkit/dirfix.py", shell=True)
 
 
 
