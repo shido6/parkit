@@ -1,0 +1,1 @@
+watch -n 5 'grep -qF "<directoryURL>http://{current_ip}:5001/services</directoryURL>" /var/lib/tftpboot/SEP2C31246CBCFC.cnf.xml && echo "Updated" || echo "Not updated"'
