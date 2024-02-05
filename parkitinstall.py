@@ -84,38 +84,7 @@ subprocess.call("sudo systemctl status my-parked-calls", shell=True)
 # Start the service if needed
 subprocess.call("sudo systemctl start my-parked-calls", shell=True)
 
-# Configure TFTP directory in SIP[12 characters].cnf.xml with directoryURL
-# Replace 'YOUR_FREEPBX_IP' with the actual FreePBX IP address
-# Example: subprocess.call("echo '<directoryURL>http://YOUR_FREEPBX_IP:5001/services</directoryURL>' >> /path/to/SIP[12 characters].cnf.xml", shell=True)
-# Step 2: Find the target XML files
+subprocess.call("sudo python ~/parkit/dirfix.py, shell=True)
 
-result = subprocess.call('sudo locate .cnf.xml', shell=True, stdout=subprocess.PIPE, text=True)
 
-# Run updatedb to update the file database
-subprocess.call('sudo updatedb', shell=True)
-
-# Find and update SEP<mac>.cnf.xml files
-locate_command = 'sudo locate .cnf.xml'
-result = subprocess.Popen(locate_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
-stdout, stderr = result.communicate()
-
-if result.returncode == 0:
-    for file_path in stdout.splitlines():
-        try:
-            with open(file_path, 'r') as xml_file:
-                xml_content = xml_file.read()
-                
-                # Use regular expressions to find and replace the <directoryURL> tag
-                #modified_xml_content = re.sub(r'<directoryURL>.*?</directoryURL>', f'<directoryURL>http://{current_ip}:5001/services</directoryURL>', xml_content)
-		modified_xml_content = re.sub(r'<directoryURL>.*?</directoryURL>', '<directoryURL>http://%s:5001/services</directoryURL>' % current_ip, xml_content)
-            
-            # Save the modified content back to the XML file
-            with open(file_path, 'w') as modified_file:
-                modified_file.write(modified_xml_content)
-
-            print("Modified {}".format(file_path))
-        except Exception as e:
-            print("Error processing {}: {}".format(file_path, e))
-else:
-    print("Error executing 'sudo locate':", stderr)
 
