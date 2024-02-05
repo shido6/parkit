@@ -28,7 +28,7 @@ print("Current IP address:", current_ip)
 subprocess.call('sudo updatedb', shell=True)
 
 # Find and update SEP<mac>.cnf.xml files
-locate_command = 'sudo locate SEP*.cnf.xml'
+locate_command = 'sudo locate .cnf.xml'
 result = subprocess.Popen(locate_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 stdout, stderr = result.communicate()
 
