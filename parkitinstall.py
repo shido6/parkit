@@ -53,14 +53,14 @@ subprocess.call("cp ~/parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py",
 
 # Move the environment to the asterisk user folder
 subprocess.call("tar cf myenv.tar ~/myenv", shell=True)
+subprocess.call("sudo chown -R asterisk:asterisk myenv", shell=True)
 subprocess.call("gzip myenv.tar", shell=True)
 subprocess.call("mv myenv.tar.gz /home/asterisk", shell=True)
 subprocess.call("cd /home/asterisk", shell=True)
-subprocess.call("tar -zxvf myenv.tar.gz", shell=True)
+subprocess.call("tar -zxf myenv.tar.gz", shell=True)
 
 # Change ownership to asterisk from your user
 subprocess.call("sudo updatedb", shell=True)
-subprocess.call("sudo chown -R asterisk:asterisk myenv", shell=True)
 subprocess.call("sudo chown -R asterisk:asterisk /home/asterisk/myenv", shell=True)
 
 # Add Execute Permissions
