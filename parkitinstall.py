@@ -29,8 +29,7 @@ else:
 sudo_password = getpass.getpass("Enter your Sudo/Root password: ")
 
 # Upgrade pip
-subprocess.run("sudo su -", shell=True)
-subprocess.run("{sudo_password}", shell=True)
+subprocess.run(f'echo "{sudo_password}" | sudo -S yum install python36u-pip mlocate -y', shell=True)
 subprocess.run("yum install python36u-pip mlocate -y", shell=True)
 subprocess.run("ln -s /usr/bin/python3.6 /usr/bin/python3", shell=True)
 subprocess.run("python3 -m pip install --upgrade pip", shell=True)
