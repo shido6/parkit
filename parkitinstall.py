@@ -59,7 +59,7 @@ command1 = 'echo "{}" | sudo -S mv myenv.tar.gz /home/asterisk'.format(sudo_pass
 subprocess.call(command1, shell=True)
 
 command2= 'echo "{}" | sudo -S cd /home/asterisk ; tar -zxf myenv.tar.gz ; chown -R asterisk:asterisk /home/asterisk/myenv'.format(sudo_password)
-subprocess.call("command2, shell=True)
+subprocess.call(command2, shell=True)
 
 # Change ownership to asterisk from your user
 subprocess.call("updatedb", shell=True)
