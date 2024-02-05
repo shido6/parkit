@@ -67,9 +67,6 @@ subprocess.call("sudo chown -R asterisk:asterisk /home/asterisk/myenv", shell=Tr
 subprocess.call("sudo chmod +x /var/lib/asterisk/scripts/parkit11.py", shell=True)
 subprocess.call("chmod +x /home/asterisk/myenv/bin/python3", shell=True)
 
-# For some reason, this doesnt exist so lets create it
-subprocess.call( mkdir -p /var/lib/asterisk/scripts , shell=True)
-
 # Create the Service
 with open("/etc/systemd/system/my-parked-calls.service", "w") as service_file:
     service_file.write("""[Unit]
