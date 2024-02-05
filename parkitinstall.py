@@ -53,18 +53,19 @@ subprocess.call("cp ~/parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py",
 
 # Move the environment to the asterisk user folder
 subprocess.call("tar cf myenv.tar ~/myenv", shell=True)
-subprocess.call("sudo chown -R asterisk:asterisk myenv", shell=True)
+subprocess.call("sudo chown -R asterisk:asterisk ~/myenv", shell=True)
 subprocess.call("gzip myenv.tar", shell=True)
-subprocess.call("mv myenv.tar.gz /home/asterisk", shell=True)
-subprocess.call("cd /home/asterisk", shell=True)
-subprocess.call("tar -zxf myenv.tar.gz", shell=True)
+command1 = 'echo "{}" | sudo -S mv myenv.tar.gz /home/asterisk'.format(sudo_password)
+subprocess.call(command1, shell=True)
+
+command2= 'echo "{}" | sudo -S cd /home/asterisk ; tar -zxf myenv.tar.gz ; chown -R asterisk:asterisk /home/asterisk/myenv'.format(sudo_password)
+subprocess.call("command2, shell=True)
 
 # Change ownership to asterisk from your user
-subprocess.call("sudo updatedb", shell=True)
-subprocess.call("sudo chown -R asterisk:asterisk /home/asterisk/myenv", shell=True)
+subprocess.call("updatedb", shell=True)
 
 # Add Execute Permissions
-subprocess.call("sudo chmod +x /var/lib/asterisk/scripts/parkit11.py", shell=True)
+subprocess.call("chmod +x /var/lib/asterisk/scripts/parkit11.py", shell=True)
 subprocess.call("chmod +x /home/asterisk/myenv/bin/python3", shell=True)
 
 # Create the Service
