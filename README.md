@@ -5,12 +5,4 @@
 ```
 sudo yum install git -y ; git clone --branch spoonfeed-2.0 https://github.com/shido6/parkit.git ; chmod +x sudo ~/parkit/parkitinstaller.sh ; sudo ~/parkit/parkitinstaller.sh
 ```
-or
-```
-sudo yum install git -y ; git clone --branch spoonfeed-2.0 https://github.com/shido6/parkit.git ; sudo python parkit/parkitinstall.py
-```
-or
 
-```
-git clone --branch spoonfeed-2.0 https://github.com/shido6/parkit.git ; sudo python parkit/parkitinstall.py
-```
