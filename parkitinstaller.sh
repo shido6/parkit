@@ -30,15 +30,15 @@ sudo update -y
 # Install prerequisites and set up a virtual environment
 echo "Create virtual environment myenv python"
 sudo python3 -m venv /home/asterisk/myenv
+sudo -u $current_user python3 -m venv /home/asterisk/myenv
 
 # Activate the virtual environment
 echo "Installing flask and pyst2"
 #sudo source $current_user_home/myenv/bin/activate
-sudo /bin/bash -c "source /home/asterisk/myenv/bin/activate"
-sudo pip install flask
-sudo pip install pyst2
-sudo pip install asterisk
-sudo deactivate
+source /home/asterisk/myenv/bin/activate
+#sudo /bin/bash -c "source /home/asterisk/myenv/bin/activate"
+ pip install flask pyst2 asterisk
+ deactivate
 
 echo "Making the scripts directory within /var/lib/asterisk"
 sudo mkdir -p /var/lib/asterisk/scripts
