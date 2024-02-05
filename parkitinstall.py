@@ -34,7 +34,6 @@ subprocess.call(command, shell=True)
 subprocess.call("ln -s /usr/bin/python3.6 /usr/bin/python3", shell=True)
 subprocess.call("python3 -m pip install --upgrade pip", shell=True)
 
-
 # Install prerequisites and set up a virtual environment
 subprocess.call("python3 -m venv myenv", shell=True)
 
@@ -47,26 +46,21 @@ subprocess.call("pip install pyst2", shell=True)
 # You can do this manually as it requires editing a configuration file
 
 # Get the Git public not private
-# Copy to asterisk scripts
-subprocess.call("mkdir -p /var/lib/asterisk/scripts", shell=True)
-subprocess.call("cp ~/parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py", shell=True)
+# Copy to asteri
 
-# Move the environment to the asterisk user folder
-subprocess.call("tar cf myenv.tar ~/myenv", shell=True)
-subprocess.call("sudo chown -R asterisk:asterisk ~/myenv", shell=True)
-subprocess.call("gzip myenv.tar", shell=True)
-command1 = 'echo "{}" | sudo -S mv myenv.tar.gz /home/asterisk'.format(sudo_password)
+command1 = 'echo "{}" | sudo -S mkdir -p /var/lib/asterisk/scripts'.format(sudo_password)
 subprocess.call(command1, shell=True)
 
-command2= 'echo "{}" | sudo -S cd /home/asterisk ; tar -zxf myenv.tar.gz ; chown -R asterisk:asterisk /home/asterisk/myenv'.format(sudo_password)
-subprocess.call(command2, shell=True)
+subprocess.call("cp -v ~/parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py", shell=True)
 
-# Change ownership to asterisk from your user
+# Move the environment to the asterisk user folder
+subprocess.call("tar -zcvf /home/asterisk/myenv.tar.gz ~/myenv/", shell=True)
+# Change ownership to asterisk (with verbosity)
+subprocess.call("sudo chown -Rv asterisk:asterisk /home/asterisk/myenv", shell=True)
+subprocess.call("sudo chown -v asterisk:asterisk /var/lib/asterisk/scripts/parkit11.py", shell=True)
+subprocess.call("sudo chmod -v +x /var/lib/asterisk/scripts/parkit11.py", shell=True)
+subprocess.call("sudo chmod -v +x /home/asterisk/myenv/bin/python3", shell=True)
 subprocess.call("updatedb", shell=True)
-
-# Add Execute Permissions
-subprocess.call("chmod +x /var/lib/asterisk/scripts/parkit11.py", shell=True)
-subprocess.call("chmod +x /home/asterisk/myenv/bin/python3", shell=True)
 
 # Create the Service
 with open("/etc/systemd/system/my-parked-calls.service", "w") as service_file:
