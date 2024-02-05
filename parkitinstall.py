@@ -14,16 +14,15 @@ def get_current_ip():
         s.close()
         return ip_address
     except Exception as e:
-        print(f"Error: {e}")
+        print("Error:", e)
         return None
 
 current_ip = get_current_ip()
 
 if current_ip:
-    print(f"Current IP address: {current_ip}")
+    print("Current IP address:", current_ip)
 else:
     print("Unable to retrieve the current IP address. Please check your network connectivity.")
-
 
 
 # Ask the user for their root password
