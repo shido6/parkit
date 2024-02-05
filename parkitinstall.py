@@ -45,14 +45,6 @@ subprocess.call("sudo source ~/myenv/bin/activate", shell=True)
 subprocess.call("sudo pip install flask", shell=True)
 subprocess.call("sudo pip install pyst2", shell=True)
 
-# Add manager user and password to parkit
-# You can do this manually as it requires editing a configuration file
-
-# Get the Git public not private
-# Copy to asteri
-
-#command1 = 'echo "{}" | sudo -S mkdir -p /var/lib/asterisk/scripts'.format(sudo_password)
-#subprocess.call(command1, shell=True)
 
 subprocess.call("mkdir -p /var/lib/asterisk/scripts", shell=True)
 subprocess.call("cp -v ~/parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py", shell=True)
@@ -91,8 +83,6 @@ subprocess.call("sudo systemctl status my-parked-calls", shell=True)
 
 # Start the service if needed
 subprocess.call("sudo systemctl start my-parked-calls", shell=True)
-# Step 1: Update the locate database
-subprocess.call('sudo updatedb', shell=True)
 
 # Configure TFTP directory in SIP[12 characters].cnf.xml with directoryURL
 # Replace 'YOUR_FREEPBX_IP' with the actual FreePBX IP address
@@ -101,14 +91,11 @@ subprocess.call('sudo updatedb', shell=True)
 
 result = subprocess.call('sudo locate .cnf.xml', shell=True, stdout=subprocess.PIPE, text=True)
 
-# Step 3 and 4: Process and modify the XML files
-# current_ip = 'YOUR_CURRENT_IP'  # Replace with the actual current IP
-
 # Run updatedb to update the file database
 subprocess.call('sudo updatedb', shell=True)
 
 # Find and update SEP<mac>.cnf.xml files
-locate_command = 'sudo locate SEP*.cnf.xml'
+locate_command = 'sudo locate .cnf.xml'
 result = subprocess.Popen(locate_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
 stdout, stderr = result.communicate()
 
