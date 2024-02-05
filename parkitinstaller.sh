@@ -32,7 +32,7 @@ sudo python3 -m venv myenv
 
 # Activate the virtual environment
 echo "Installing flask and pyst2"
-sudo source ~/myenv/bin/activate
+sudo source $current_user_home/myenv/bin/activate
 sudo pip install flask
 sudo pip install pyst2
 
@@ -51,9 +51,47 @@ echo "Extracting myenv.tar.gz in /home/asterisk"
 cd /home/asterisk
 sudo tar -zxvf myenv.tar.gz
 
-# Check if the myenv directory now exists in /home/asterisk
-if [ ! -d "/home/asterisk/myenv" ]; then
-    echo "Error: The myenv directory does not exist in /home/asterisk."
+# Check if the myenv directory exists
+myenv_directory="$current_user_home/myenv"
+if [ ! -d "$myenv_directory" ]; then
+    echo "Error: The myenv directory does not exist."
+    exit 1
+fi
+
+# Move the myenv directory to /home/asterisk
+echo "Moving the myenv directory to /home/asterisk"
+sudo mv "$myenv_directory" /home/asterisk/
+
+# Verify that myenv is now in /home/asterisk
+if [ -d "/home/asterisk/myenv" ]; then
+    echo "Successfully moved myenv to /home/asterisk"
+else
+    echo "Error: Failed to move myenv to /home/asterisk."
+    exit 1
+fi
+
+# Create myenv.tar.gz
+echo "Creating myenv.tar.gz"
+sudo tar -zcvf /home/asterisk/myenv.tar.gz -C /home/asterisk myenv
+
+# Verify that myenv.tar.gz is now in /home/asterisk
+if [ -f "/home/asterisk/myenv.tar.gz" ]; then
+    echo "Successfully created myenv.tar.gz in /home/asterisk"
+else
+    echo "Error: Failed to create myenv.tar.gz in /home/asterisk."
+    exit 1
+fi
+
+# Extract myenv.tar.gz in /home/asterisk
+echo "Extracting myenv.tar.gz in /home/asterisk"
+cd /home/asterisk
+sudo tar -zxvf myenv.tar.gz
+
+# Verify that myenv is now extracted in /home/asterisk
+if [ -d "/home/asterisk/myenv" ]; then
+    echo "Successfully extracted myenv in /home/asterisk"
+else
+    echo "Error: Failed to extract myenv in /home/asterisk."
     exit 1
 fi
 
