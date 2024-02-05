@@ -14,8 +14,11 @@ else
     echo "Unable to retrieve the current IP address. Please check your network connectivity."
 fi
 
+# Get the current user
+current_user=$(who am i | awk '{print $1}')
 current_user_home=$(getent passwd "$current_user" | cut -d: -f6)
-
+echo "Current user: $current_user"
+echo "Home directory: $current_user_home"
 
 # Upgrade pip
 echo "Updating python"
@@ -33,12 +36,6 @@ sudo source ~/myenv/bin/activate
 sudo pip install flask
 sudo pip install pyst2
 
-# Get the current user
-current_user=$(who am i | awk '{print $1}')
-current_user_home=$(getent passwd "$current_user" | cut -d: -f6)
-echo "Current user: $current_user"
-echo "Home directory: $current_user_home"
-
 echo "Making the scripts directory within /var/lib/asterisk"
 sudo mkdir -p /var/lib/asterisk/scripts
 echo "Copying script to /var/lib/asterisk/scripts"
@@ -47,7 +44,7 @@ sudo cp -v $current_user_home/parkit/parkit11.py /var/lib/asterisk/scripts/parki
 echo "Changing ownership and moving files to headless asterisk user"
 # Move the environment to the asterisk user folder
 sudo tar -zcvf /home/asterisk/myenv.tar.gz $current_user_home/myenv/
-sudo cd /home/asterisk/
+#sudo cd /home/asterisk/
 sudo tar -zxvf /home/asterisk/myenv.tar.gz -C /home/asterisk/
 # Change ownership to asterisk
 sudo chown -R asterisk:asterisk /home/asterisk/myenv
