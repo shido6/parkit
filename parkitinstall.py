@@ -110,7 +110,8 @@ for file_path in result.stdout.splitlines():
             xml_content = xml_file.read()
             
             # Use regular expressions to find and replace the <directoryURL> tag
-            modified_xml_content = re.sub(r'<directoryURL>.*?</directoryURL>', f'<directoryURL>http://{current_ip}:5001/services</directoryURL>', xml_content)
+            #modified_xml_content = re.sub(r'<directoryURL>.*?</directoryURL>', f'<directoryURL>http://{current_ip}:5001/services</directoryURL>', xml_content)
+            modified_xml_content = re.sub(r'<directoryURL>.*?</directoryURL>', '<directoryURL>http://%s:5001/services</directoryURL>' % current_ip, xml_content)
         
         # Save the modified content back to the XML file
         with open(file_path, 'w') as modified_file:
