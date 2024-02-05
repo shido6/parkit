@@ -119,6 +119,7 @@ for file_path in result.stdout.splitlines():
 
     #    print(f"Modified {file_path}")
     #    print("Modified %s" % file_path)
-    print("Modified {}".format(file_path))
+    #    print("Modified {}".format(file_path))
+    print("Modified " + file_path)
     except Exception as e:
         print(f"Error processing {file_path}: {e}")
