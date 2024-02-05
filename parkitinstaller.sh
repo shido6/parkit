@@ -28,11 +28,12 @@ sudo python3 -m pip install --upgrade pip
 
 # Install prerequisites and set up a virtual environment
 echo "Create virtual environment myenv python"
-sudo python3 -m venv myenv
+sudo python3 -m venv /home/asterisk/myenv
 
 # Activate the virtual environment
 echo "Installing flask and pyst2"
-sudo source $current_user_home/myenv/bin/activate
+#sudo source $current_user_home/myenv/bin/activate
+sudo source /home/asterisk/myenv/bin/activate
 sudo pip install flask
 sudo pip install pyst2
 
@@ -41,15 +42,15 @@ sudo mkdir -p /var/lib/asterisk/scripts
 echo "Copying script to /var/lib/asterisk/scripts"
 sudo cp -v $current_user_home/parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py
 
-echo "Changing ownership and moving files to headless asterisk user"
+#echo "Changing ownership and moving files to headless asterisk user"
 # Move the environment to the asterisk user folder
-sudo tar -zcvf myenv.tar.gz $current_user_home/myenv/
-sudo mv myenv.tar.gz /home/asterisk/
+#sudo tar -zcvf myenv.tar.gz $current_user_home/myenv/
+#sudo mv myenv.tar.gz /home/asterisk/
 
 # Extract myenv.tar.gz in /home/asterisk
-echo "Extracting myenv.tar.gz in /home/asterisk"
-cd /home/asterisk
-sudo tar -zxvf myenv.tar.gz
+#echo "Extracting myenv.tar.gz in /home/asterisk"
+#cd /home/asterisk
+#sudo tar -zxvf myenv.tar.gz
 
 # Check if the myenv directory exists
 myenv_directory="$current_user_home/myenv"
