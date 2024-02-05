@@ -48,7 +48,7 @@ subprocess.call("pip install pyst2", shell=True)
 
 # Get the Git public not private
 # Copy to asterisk scripts
-subprocess.run("mkdir -p /var/lib/asterisk/scripts/", shell=True)
+subprocess.call("mkdir -p /var/lib/asterisk/scripts/", shell=True)
 subprocess.call("cp ~/parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py", shell=True)
 
 # Move the environment to the asterisk user folder
