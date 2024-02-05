@@ -26,21 +26,23 @@ else:
 
 
 # Ask the user for their sudo password
-sudo_password = getpass.getpass("Enter your sudo password: ")
+# sudo_password = getpass.getpass("Enter your sudo password: ")
 
 # Upgrade pip
-command = 'echo "{}" | sudo -S yum install python36u-pip mlocate -y'.format(sudo_password)
-subprocess.call(command, shell=True)
-subprocess.call("ln -s /usr/bin/python3.6 /usr/bin/python3", shell=True)
-subprocess.call("python3 -m pip install --upgrade pip", shell=True)
+#command = 'echo "{}" | sudo -S yum install python36u-pip mlocate -y'.format(sudo_password)
+#subprocess.call(command, shell=True)
+
+subprocess.call("sudo yum install python36u-pip mlocate -y", shell=True)
+subprocess.call("sudo ln -s /usr/bin/python3.6 /usr/bin/python3", shell=True)
+subprocess.call("sudo python3 -m pip install --upgrade pip", shell=True)
 
 # Install prerequisites and set up a virtual environment
-subprocess.call("python3 -m venv myenv", shell=True)
+subprocess.call("sudo python3 -m venv myenv", shell=True)
 
 # Activate the virtual environment
-subprocess.call("source ~/myenv/bin/activate", shell=True)
-subprocess.call("pip install flask", shell=True)
-subprocess.call("pip install pyst2", shell=True)
+subprocess.call("sudo source ~/myenv/bin/activate", shell=True)
+subprocess.call("sudo pip install flask", shell=True)
+subprocess.call("sudo pip install pyst2", shell=True)
 
 # Add manager user and password to parkit
 # You can do this manually as it requires editing a configuration file
@@ -48,19 +50,20 @@ subprocess.call("pip install pyst2", shell=True)
 # Get the Git public not private
 # Copy to asteri
 
-command1 = 'echo "{}" | sudo -S mkdir -p /var/lib/asterisk/scripts'.format(sudo_password)
-subprocess.call(command1, shell=True)
+#command1 = 'echo "{}" | sudo -S mkdir -p /var/lib/asterisk/scripts'.format(sudo_password)
+#subprocess.call(command1, shell=True)
 
+subprocess.call("mkdir -p /var/lib/asterisk/scripts", shell=True)
 subprocess.call("cp -v ~/parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py", shell=True)
 
 # Move the environment to the asterisk user folder
-subprocess.call("tar -zcvf /home/asterisk/myenv.tar.gz ~/myenv/", shell=True)
+subprocess.call("sudo tar -zcvf /home/asterisk/myenv.tar.gz ~/myenv/", shell=True)
 # Change ownership to asterisk (with verbosity)
 subprocess.call("sudo chown -Rv asterisk:asterisk /home/asterisk/myenv", shell=True)
 subprocess.call("sudo chown -v asterisk:asterisk /var/lib/asterisk/scripts/parkit11.py", shell=True)
 subprocess.call("sudo chmod -v +x /var/lib/asterisk/scripts/parkit11.py", shell=True)
 subprocess.call("sudo chmod -v +x /home/asterisk/myenv/bin/python3", shell=True)
-subprocess.call("updatedb", shell=True)
+subprocess.call("sudo updatedb", shell=True)
 
 # Create the Service
 with open("/etc/systemd/system/my-parked-calls.service", "w") as service_file:
@@ -86,7 +89,7 @@ subprocess.call("sudo systemctl enable my-parked-calls", shell=True)
 subprocess.call("sudo systemctl status my-parked-calls", shell=True)
 
 # Start the service if needed
-# subprocess.call("sudo systemctl start my-parked-calls", shell=True)
+subprocess.call("sudo systemctl start my-parked-calls", shell=True)
 
 # Configure TFTP directory in SIP[12 characters].cnf.xml with directoryURL
 # Replace 'YOUR_FREEPBX_IP' with the actual FreePBX IP address
