@@ -24,6 +24,19 @@ if current_ip:
 else:
     print("Unable to retrieve the current IP address. Please check your network connectivity.")
 
+
+
+# Ask the user for their root password
+sudo_password = getpass.getpass("Enter your Sudo/Root password: ")
+
+# Upgrade pip
+subprocess.run("sudo su -", shell=True)
+subprocess.run("sudo_password, shell=True)
+#subprocess.run("{sudo_password}", shell=True)
+subprocess.run("yum install python36u-pip mlocate git wget -y", shell=True)
+subprocess.run("ln -s /usr/bin/python3.6 /usr/bin/python3", shell=True)
+subprocess.run("python3 -m pip install --upgrade pip", shell=True)
+
 # Ask the user for their GitHub username and password
 #github_username = input("Enter your GitHub username: ")
 #github_password = getpass.getpass("Enter your GitHub password: ")
@@ -32,17 +45,6 @@ else:
 #clone_command = f"git clone https://{github_username}:{github_password}@github.com/shido6/parkit.git"
 clone_command = f"git clone https://github.com/shido6/parkit.git"
 subprocess.run(clone_command, shell=True)
-
-
-# Ask the user for their root password
-sudo_password = getpass.getpass("Enter your Sudo/Root password: ")
-
-# Upgrade pip
-subprocess.run("sudo su -", shell=True)
-subprocess.run("{sudo_password}", shell=True)
-subprocess.run("yum install python36u-pip mlocate git wget -y", shell=True)
-subprocess.run("ln -s /usr/bin/python3.6 /usr/bin/python3", shell=True)
-subprocess.run("python3 -m pip install --upgrade pip", shell=True)
 
 # Install prerequisites and set up a virtual environment
 subprocess.run("python3 -m venv myenv", shell=True)
