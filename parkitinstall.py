@@ -118,5 +118,6 @@ for file_path in result.stdout.splitlines():
 
         print("Modified {}".format(file_path))
     except Exception as e:
-        print(f"Error processing {file_path}: {e}")
+       # print(f"Error processing {file_path}: {e}")
+        print("Error processing {}: {}".format(file_path, e))
         
