@@ -25,11 +25,12 @@ else:
     print("Unable to retrieve the current IP address. Please check your network connectivity.")
 
 # Ask the user for their GitHub username and password
-github_username = input("Enter your GitHub username: ")
-github_password = getpass.getpass("Enter your GitHub password: ")
+#github_username = input("Enter your GitHub username: ")
+#github_password = getpass.getpass("Enter your GitHub password: ")
 
 # Clone the Parkit GitHub repository using the provided credentials
-clone_command = f"git clone https://{github_username}:{github_password}@github.com/shido6/parkit.git"
+#clone_command = f"git clone https://{github_username}:{github_password}@github.com/shido6/parkit.git"
+clone_command = f"git clone https://github.com/shido6/parkit.git"
 subprocess.run(clone_command, shell=True)
 
 # Upgrade pip
