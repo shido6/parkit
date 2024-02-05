@@ -44,8 +44,8 @@ sudo cp -v $current_user_home/parkit/parkit11.py /var/lib/asterisk/scripts/parki
 echo "Changing ownership and moving files to headless asterisk user"
 # Move the environment to the asterisk user folder
 sudo tar -zcvf myenv.tar.gz $current_user_home/myenv/
-#sudo cd /home/asterisk/
-sudo tar -zxvf /home/asterisk/myenv.tar.gz -C /home/asterisk/
+sudo mv myenv.tar.gz /home/asterisk/
+cd /home/asterisk ; sudo tar -zxvf /home/asterisk/myenv.tar.gz -C /home/asterisk/
 # Change ownership to asterisk
 sudo chown -R asterisk:asterisk /home/asterisk/myenv
 sudo chown asterisk:asterisk /var/lib/asterisk/scripts/parkit11.py
