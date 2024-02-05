@@ -25,7 +25,7 @@ echo "Updating python"
 sudo yum install python36u-pip mlocate -y
 sudo ln -s /usr/bin/python3.6 /usr/bin/python3
 sudo python3 -m pip install --upgrade pip
-sudo update -y
+sudo yum update -y
 
 # Install prerequisites and set up a virtual environment
 echo "Create virtual environment myenv python"
