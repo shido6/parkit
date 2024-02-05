@@ -99,7 +99,7 @@ subprocess.call('sudo updatedb', shell=True)
 # Example: subprocess.call("echo '<directoryURL>http://YOUR_FREEPBX_IP:5001/services</directoryURL>' >> /path/to/SIP[12 characters].cnf.xml", shell=True)
 # Step 2: Find the target XML files
 
-result = subprocess.run('sudo locate SEPF*.cnf.xml', shell=True, stdout=subprocess.PIPE, text=True)
+result = subprocess.call('sudo locate SEPF*.cnf.xml', shell=True, stdout=subprocess.PIPE, text=True)
 
 # Step 3 and 4: Process and modify the XML files
 # current_ip = 'YOUR_CURRENT_IP'  # Replace with the actual current IP
