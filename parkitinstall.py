@@ -2,6 +2,7 @@ import os
 import subprocess
 import socket
 import getpass
+import re
 
 # Get the current IP address of the system
 def get_current_ip():
@@ -90,7 +91,32 @@ subprocess.call("sudo systemctl status my-parked-calls", shell=True)
 
 # Start the service if needed
 subprocess.call("sudo systemctl start my-parked-calls", shell=True)
+# Step 1: Update the locate database
+subprocess.call('sudo updatedb', shell=True)
 
 # Configure TFTP directory in SIP[12 characters].cnf.xml with directoryURL
 # Replace 'YOUR_FREEPBX_IP' with the actual FreePBX IP address
 # Example: subprocess.call("echo '<directoryURL>http://YOUR_FREEPBX_IP:5001/services</directoryURL>' >> /path/to/SIP[12 characters].cnf.xml", shell=True)
+# Step 2: Find the target XML files
+
+result = subprocess.run('sudo locate SEPF*.cnf.xml', shell=True, stdout=subprocess.PIPE, text=True)
+
+# Step 3 and 4: Process and modify the XML files
+# current_ip = 'YOUR_CURRENT_IP'  # Replace with the actual current IP
+
+for file_path in result.stdout.splitlines():
+    try:
+        with open(file_path, 'r') as xml_file:
+            xml_content = xml_file.read()
+            
+            # Use regular expressions to find and replace the <directoryURL> tag
+            modified_xml_content = re.sub(r'<directoryURL>.*?</directoryURL>', f'<directoryURL>http://{current_ip}:5001/services</directoryURL>', xml_content)
+        
+        # Save the modified content back to the XML file
+        with open(file_path, 'w') as modified_file:
+            modified_file.write(modified_xml_content)
+
+        print(f"Modified {file_path}")
+    
+    except Exception as e:
+        print(f"Error processing {file_path}: {e}")
