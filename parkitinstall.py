@@ -33,8 +33,13 @@ else:
 clone_command = f"git clone https://github.com/shido6/parkit.git"
 subprocess.run(clone_command, shell=True)
 
+
+# Ask the user for their root password
+sudo_password = getpass.getpass("Enter your Sudo/Root password: ")
+
 # Upgrade pip
 subprocess.run("sudo su -", shell=True)
+subprocess.run("{sudo_password}", shell=True)
 subprocess.run("yum install python36u-pip mlocate git wget -y", shell=True)
 subprocess.run("ln -s /usr/bin/python3.6 /usr/bin/python3", shell=True)
 subprocess.run("python3 -m pip install --upgrade pip", shell=True)
