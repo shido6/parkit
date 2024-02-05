@@ -14,6 +14,11 @@ else
     echo "Unable to retrieve the current IP address. Please check your network connectivity."
 fi
 
+# Get the current user
+current_user=$(who am i | awk '{print $1}')
+
+echo "Current user: $current_user"
+
 # Upgrade pip
 echo "Updating python"
 sudo yum install python36u-pip mlocate -y
@@ -30,6 +35,8 @@ sudo source ~/myenv/bin/activate
 sudo pip install flask
 sudo pip install pyst2
 
+echo "Who Am I?"
+echo "who am i"?
 echo "Making the scripts directory within /var/lib/asterisk"
 sudo mkdir -p /var/lib/asterisk/scripts
 echo "Copying script to /var/lib/asterisk/scripts"
