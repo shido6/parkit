@@ -45,7 +45,18 @@ echo "Changing ownership and moving files to headless asterisk user"
 # Move the environment to the asterisk user folder
 sudo tar -zcvf myenv.tar.gz $current_user_home/myenv/
 sudo mv myenv.tar.gz /home/asterisk/
-sudo cd /home/asterisk ; sudo tar -zxvf /home/asterisk/myenv.tar.gz -C /home/asterisk/
+
+# Extract myenv.tar.gz in /home/asterisk
+echo "Extracting myenv.tar.gz in /home/asterisk"
+cd /home/asterisk
+sudo tar -zxvf myenv.tar.gz
+
+# Check if the myenv directory now exists in /home/asterisk
+if [ ! -d "/home/asterisk/myenv" ]; then
+    echo "Error: The myenv directory does not exist in /home/asterisk."
+    exit 1
+fi
+
 # Change ownership to asterisk
 sudo chown -R asterisk:asterisk /home/asterisk/myenv
 sudo chown asterisk:asterisk /var/lib/asterisk/scripts/parkit11.py
