@@ -34,7 +34,7 @@ sudo python3 -m venv /home/asterisk/myenv
 # Activate the virtual environment
 echo "Installing flask and pyst2"
 #sudo source $current_user_home/myenv/bin/activate
-sudo source /home/asterisk/myenv/bin/activate
+sudo /bin/bash -c "source /home/asterisk/myenv/bin/activate"
 sudo pip install flask
 sudo pip install pyst2
 sudo deactivate
