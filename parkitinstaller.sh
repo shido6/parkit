@@ -37,6 +37,7 @@ echo "Installing flask and pyst2"
 sudo source /home/asterisk/myenv/bin/activate
 sudo pip install flask
 sudo pip install pyst2
+sudo deactivate
 
 echo "Making the scripts directory within /var/lib/asterisk"
 sudo mkdir -p /var/lib/asterisk/scripts
