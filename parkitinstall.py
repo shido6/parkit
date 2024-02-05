@@ -33,18 +33,9 @@ sudo_password = getpass.getpass("Enter your Sudo/Root password: ")
 subprocess.run("sudo su -", shell=True)
 subprocess.run("sudo_password, shell=True)
 #subprocess.run("{sudo_password}", shell=True)
-subprocess.run("yum install python36u-pip mlocate git wget -y", shell=True)
+subprocess.run("yum install python36u-pip mlocate -y", shell=True)
 subprocess.run("ln -s /usr/bin/python3.6 /usr/bin/python3", shell=True)
 subprocess.run("python3 -m pip install --upgrade pip", shell=True)
-
-# Ask the user for their GitHub username and password
-#github_username = input("Enter your GitHub username: ")
-#github_password = getpass.getpass("Enter your GitHub password: ")
-
-# Clone the Parkit GitHub repository using the provided credentials
-#clone_command = f"git clone https://{github_username}:{github_password}@github.com/shido6/parkit.git"
-clone_command = f"git clone https://github.com/shido6/parkit.git"
-subprocess.run(clone_command, shell=True)
 
 # Install prerequisites and set up a virtual environment
 subprocess.run("python3 -m venv myenv", shell=True)
@@ -60,7 +51,6 @@ subprocess.run("pip install pyst2", shell=True)
 # Get the Git public not private
 # Copy to asterisk scripts
 subprocess.run("sudo mkdir -p /var/lib/asterisk/scripts/", shell=True)
-subprocess.run("git clone https://github.com/shido6/parkit.git ", shell=True)
 subprocess.run("cp parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py", shell=True)
 
 # Move the environment to the asterisk user folder
