@@ -118,6 +118,7 @@ for file_path in result.stdout.splitlines():
             modified_file.write(modified_xml_content)
 
     #    print(f"Modified {file_path}")
-    print("Modified %s" % file_path)
+    #    print("Modified %s" % file_path)
+    print("Modified {}".format(file_path))
     except Exception as e:
         print(f"Error processing {file_path}: {e}")
