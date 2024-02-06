@@ -32,6 +32,7 @@ echo "Create virtual environment myenv python"
 sudo python3 -m venv /home/asterisk/myenv
 sudo -u $current_user python3 -m venv /home/asterisk/myenv
 
+
 # Activate the virtual environment
 echo "Installing flask and pyst2"
 #sudo source $current_user_home/myenv/bin/activate
@@ -116,7 +117,7 @@ Description=My Parked Calls Service
 After=network.target
 
 [Service]
-ExecStart="virtualenv --python=/home/asterisk/myenv/bin/python3  myenv /var/lib/asterisk/scripts/parkit11.py"
+ExecStart="virtualenv --python=/home/asterisk/myenv/bin/python3 myenv /var/lib/asterisk/scripts/parkit11.py"
 WorkingDirectory=/var/lib/asterisk/scripts
 Restart=always
 User=asterisk
