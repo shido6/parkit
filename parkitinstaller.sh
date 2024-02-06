@@ -86,10 +86,10 @@ echo "Reload the Daemon and enable the service"
 # Reload the Daemon and enable the service
 sudo systemctl daemon-reload
 sudo systemctl enable my-parked-calls
-sudo systemctl status my-parked-calls
 
 # Start the service if needed
 sudo systemctl start my-parked-calls
 
 echo "Update the conf files with the new services button"
 sudo python $current_user_home/parkit/dirfix.py
+subprocess.call("sudo systemctl status my-parked-calls", shell=True)
