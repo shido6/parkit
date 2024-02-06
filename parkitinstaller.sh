@@ -34,19 +34,19 @@ sudo chmod +x /home/asterisk/myenv/bin/activate
 #echo "Changing to user asterisk" && sudo su - asterisk -c "echo 'Creating virtual environment myenv'" && sudo python3 -m venv /home/asterisk/myenv && echo "Installing flask and pyst2" && source /home/asterisk/myenv/bin/activate && pip install flask pyst2 asterisk && pip3 install --upgrade pip && deactivate
 
 echo "Changing to user asterisk"
-sudo su - asterisk
+sudo -u asterisk /bin/bash << EOF
+  # Activate the virtual environment
+  echo "Activating virtual environment myenv"
+  source /home/asterisk/myenv/bin/activate
 
-# Activate the virtual environment
-echo "Activating virtual environment myenv"
-source /home/asterisk/myenv/bin/activate
+  # Install prerequisites and set up a virtual environment
+  echo "Installing flask, pyst2, and asterisk in the virtual environment"
+  pip install flask pyst2 asterisk
 
-# Install prerequisites and set up a virtual environment
-echo "Installing flask, pyst2, and asterisk in the virtual environment"
-pip install flask pyst2 asterisk
-
-# Deactivate the virtual environment
-echo "Deactivating virtual environment"
-deactivate
+  # Deactivate the virtual environment
+  echo "Deactivating virtual environment"
+  deactivate
+EOF
 
 
 echo "Making the scripts directory within /var/lib/asterisk"
