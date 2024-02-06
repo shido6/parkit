@@ -1,4 +1,4 @@
-#/home/asterisk/myenv/bin/python3
+#!/usr/bin/env python3.6
 import time
 import asterisk.manager
 from flask import Flask, render_template_string, Response, request
