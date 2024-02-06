@@ -77,7 +77,7 @@ Description=My Parked Calls Service
 After=network.target
 
 [Service]
-ExecStart="source /home/asterisk/myenv/bin/activate /var/lib/asterisk/scripts/parkit11.py"
+ExecStart=/home/asterisk/myenv/bin/python /var/lib/asterisk/scripts/parkit11.py
 WorkingDirectory=/var/lib/asterisk/scripts
 Restart=always
 User=asterisk
