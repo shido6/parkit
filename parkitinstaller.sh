@@ -29,8 +29,9 @@ sudo yum update -y
 
 
 # Install prerequisites and set up a virtual environment
-
-echo "Changing to user asterisk" && sudo su - asterisk -c "echo 'Creating virtual environment myenv'" && sudo python3 -m venv /home/asterisk/myenv && echo "Installing flask and pyst2" && source /home/asterisk/myenv/bin/activate && pip3 install flask pyst2 asterisk && pip3 install --upgrade pip3 && deactivate
+echo "Updating virtual environmnet activate permissions"
+sudo chmod +x /home/asterisk/myenv/bin/activate
+echo "Changing to user asterisk" && sudo su - asterisk -c "echo 'Creating virtual environment myenv'" && sudo python3 -m venv /home/asterisk/myenv && echo "Installing flask and pyst2" && source /home/asterisk/myenv/bin/activate && pip install flask pyst2 asterisk && pip3 install --upgrade pip && deactivate
 
 
 echo "Making the scripts directory within /var/lib/asterisk"
