@@ -1,6 +1,5 @@
 
 # Easy Installer
-# python3 parkitinstall.py
 # Login as your user, not asterisk, not root
 
 ```
