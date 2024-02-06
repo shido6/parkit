@@ -36,7 +36,7 @@ echo "Changing to user asterisk"
 sudo -u asterisk /bin/bash << EOF
   # Activate the virtual environment
   echo "Activating virtual environment myenv"
-  sudo python3 -m venv /home/asterisk/myenv
+  python3 -m venv /home/asterisk/myenv
   source /home/asterisk/myenv/bin/activate
 
   # Install prerequisites and set up a virtual environment
