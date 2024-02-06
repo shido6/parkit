@@ -30,7 +30,7 @@ sudo yum update -y
 
 # Install prerequisites and set up a virtual environment
 
-echo "Changing to user asterisk" && sudo su - asterisk -c "echo 'Creating virtual environment myenv'" && sudo python3 -m venv /home/asterisk/myenv && echo "Installing flask and pyst2" && source /home/asterisk/myenv/bin/activate && pip install flask pyst2 asterisk 
+echo "Changing to user asterisk" && sudo su - asterisk -c "echo 'Creating virtual environment myenv'" && sudo python3 -m venv /home/asterisk/myenv && echo "Installing flask and pyst2" && source /home/asterisk/myenv/bin/activate && pip install flask pyst2 asterisk && deactivate
 
 
 echo "Making the scripts directory within /var/lib/asterisk"
@@ -80,10 +80,10 @@ echo "Reload the Daemon and enable the service"
 # Reload the Daemon and enable the service
 sudo systemctl daemon-reload
 sudo systemctl enable my-parked-calls
-sudo systemctl start my-parked-calls
 sudo systemctl status my-parked-calls
 
 # Start the service if needed
+sudo systemctl start my-parked-calls
 
 echo "Update the conf files with the new services button"
 sudo python $current_user_home/parkit/dirfix.py
