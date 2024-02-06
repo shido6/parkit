@@ -27,18 +27,11 @@ sudo ln -s /usr/bin/python3.6 /usr/bin/python3
 sudo python3 -m pip install --upgrade pip
 sudo yum update -y
 
-echo "Changing to user asterisk"
-sudo su - 
-su - asterisk
 
 # Install prerequisites and set up a virtual environment
-echo "Create virtual environment myenv python"
-sudo python3 -m venv /home/asterisk/myenv
-# Activate the virtual environment
-echo "Installing flask and pyst2"
-source myenv/bin/activate
- pip install flask pyst2 asterisk
- deactivate
+
+echo "Changing to user asterisk" && sudo su - asterisk -c "echo 'Creating virtual environment myenv'" && sudo python3 -m venv /home/asterisk/myenv && echo "Installing flask and pyst2" && source /home/asterisk/myenv/bin/activate && pip install flask pyst2 asterisk && deactivate
+
 
 echo "Making the scripts directory within /var/lib/asterisk"
 sudo mkdir -p /var/lib/asterisk/scripts
