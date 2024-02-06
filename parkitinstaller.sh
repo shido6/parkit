@@ -53,14 +53,6 @@ sudo mkdir -p /var/lib/asterisk/scripts
 echo "Copying script to /var/lib/asterisk/scripts"
 sudo cp -v $current_user_home/parkit/parkit11.py /var/lib/asterisk/scripts/parkit11.py
 
-# Verify that myenv is now in /home/asterisk
-if [ -d "/home/asterisk/myenv" ]; then
-    echo "Successfully updated myenv in /home/asterisk"
-else
-    echo "Error: Failed to update myenv in /home/asterisk."
-    exit 1
-fi
-
 # Change ownership to asterisk
 sudo chown -R asterisk:asterisk /home/asterisk/myenv
 sudo chown asterisk:asterisk /var/lib/asterisk/scripts/parkit11.py
