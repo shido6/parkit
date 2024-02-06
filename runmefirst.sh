@@ -33,4 +33,5 @@ echo "Sudoers file updated successfully."
 
 # Run the parkitinstaller.sh script
 echo "Running parkitinstaller.sh..."
+sudo chmod +x $current_user_home/parkit/parkitinstaller.sh
 sudo -u $current_user $current_user_home/parkit/parkitinstaller.sh
