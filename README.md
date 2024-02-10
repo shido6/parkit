@@ -1,7 +1,7 @@
 
 # Easy Installer
 # Login as your user, not asterisk, not root
-# Run from your user's home dir or change the ~/parkit destination
+# Run from your user's home dir or change the ~/parkit file location.
 
 ```
 sudo yum install git -y ; git clone --branch spoonfeed-2.0 https://github.com/shido6/parkit.git ;sudo chmod +x ~/parkit/runmefirst.sh; sudo ~/parkit/runmefirst.sh
