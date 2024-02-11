@@ -22,3 +22,4 @@ Remove the parkit directory
 rm parkit
 ```
 Then rerun the install command
+update admin password in parkit11.py
