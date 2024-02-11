@@ -25,10 +25,8 @@ if not current_ip:
     exit()
 
 print("Current IP address:", current_ip)
-
 # Run updatedb to update the file database
 subprocess.call('sudo updatedb', shell=True)
-
 # Find and update SEP<mac>.cnf.xml files
 locate_command = 'sudo locate .cnf.xml'
 #!/usr/bin/env python3.6
