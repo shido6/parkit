@@ -30,8 +30,15 @@ rm parkit
 ```
 Then rerun the install command
 
-# update admin password in parkit11.py
-# update runmefirst.sh with current dir or an argument to use the dir specified for /parkit/
+Oopsy?
+-------
+
+update admin password in parkit11.py and restart the service
+```
+sudo systemctl restart my-parked-calls
+```
+
+update runmefirst.sh with current dir or an argument to use the dir specified for /parkit/
 
 Support
 -------
