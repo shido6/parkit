@@ -4,8 +4,9 @@ parkit
 
 Parkit is an open-source directory application used to display parked calls on the CP-8851 display.
 
-# Easy Installer
-# Login as your user, not asterisk, not root
+Easy Installer
+---------------
+Login as your user, not asterisk, not root
 ```
 sudo yum install git -y && \
 git clone --branch spoonfeed-2.0 https://github.com/shido6/parkit.git && \
