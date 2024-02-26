@@ -44,7 +44,6 @@ update runmefirst.sh with current dir or an argument to use the dir specified fo
 Support
 -------
 
- * [Homepage](http://starwoodtechnologies.com)
  * [Issues](https://github.com/shido6/parkit/issues)
 
 Authors
