@@ -49,4 +49,4 @@ Support
 Authors
 -------
 
- * Developers: Shido Xavier <parkti+shido6@gmail.com>
+ * Developers: Shido Xavier <parkit+shido6@gmail.com>
