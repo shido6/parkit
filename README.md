@@ -1,8 +1,11 @@
 parkit
 ========
-**WARNING: For Patched FreePBX 15 ( Tested on 15.0.23 )**
+**WARNING: For Patched FreePBX 15 ( Tested on 15.0.23 )** CentOS (?)
 
 Parkit is an open-source directory application used to display parked calls on the CP-8851 display.
+
+TODO:
+Rewrite for Debian/Ubuntu
 
 Easy Installer
 ---------------
