@@ -1,35 +1,4 @@
-#!/usr/bin/env python3.6
-
-import subprocess
-import re
-import socket
-
-# Get the current IP address of the system
-def get_current_ip():
-    try:
-        # Create a socket to get the IP address
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        s.settimeout(0.1)
-        s.connect(("8.8.8.8", 80))  # Connect to a public DNS server
-        ip_address = s.getsockname()[0]
-        s.close()
-        return ip_address
-    except Exception as e:
-        print("Error:", e)
-        return None
-
-current_ip = get_current_ip()
-
-if not current_ip:
-    print("Unable to retrieve the current IP address. Please check your network connectivity.")
-    exit()
-
-print("Current IP address:", current_ip)
-# Run updatedb to update the file database
-subprocess.call('sudo updatedb', shell=True)
-# Find and update SEP<mac>.cnf.xml files
-locate_command = 'sudo locate .cnf.xml'
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 
 import subprocess
 import re

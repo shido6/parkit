@@ -1,1 +1,9 @@
-watch -n 5 'grep -qF "<directoryURL>http://{current_ip}:5001/services</directoryURL>" /var/lib/tftpboot/somemacaddyhere.cnf.xml && echo "Updated" || echo "Not updated"'
+#!/bin/bash
+# Usage: ./boom <phone_mac_address>
+# Example: ./boom 001122334455
+# Checks if the phone's config file has the directoryURL pointing to the parkit service
+
+MAC=${1:?Usage: $0 <phone_mac_address>}
+PATTERN='<directoryURL>http://[0-9.]\+:5001/services</directoryURL>'
+
+watch -n 5 "grep -qF \"$PATTERN\" /var/lib/tftpboot/SEP$MAC.cnf.xml 2>/dev/null && echo \"Updated\" || echo \"Not updated\""

@@ -30,7 +30,7 @@ Troubleshooting
 #### parkit directory
 Remove the parkit directory
 ```
-rm parkit
+rm -rf parkit
 ```
 Then rerun the install command
 

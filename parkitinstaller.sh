@@ -1,52 +1,19 @@
 #!/bin/bash
 
-# Get the current IP address of the system
-get_current_ip() {
-    ip_address=$(ip route get 8.8.8.8 | awk '{print $NF; exit}')
-    echo "$ip_address"
-}
-
-current_ip=$(get_current_ip)
-
-if [ -n "$current_ip" ]; then
-    echo "Current IP address: $current_ip"
-else
-    echo "Unable to retrieve the current IP address. Please check your network connectivity."
-fi
-
-# Get the current user
 current_user=$(who am i | awk '{print $1}')
 current_user_home=$(getent passwd "$current_user" | cut -d: -f6)
-echo "Current user: $current_user"
-echo "Home directory: $current_user_home"
 
-# Upgrade pip
 echo "Updating python"
 sudo yum install python36u-pip mlocate -y
 sudo ln -s /usr/bin/python3.6 /usr/bin/python3
 sudo python3 -m pip install --upgrade pip
 sudo yum update -y
 
+echo "Creating virtual environment as asterisk user"
+sudo -u asterisk python3 -m venv /home/asterisk/myenv
 
-# Install prerequisites and set up a virtual environment
-echo "Updating virtual environmnet activate permissions"
-sudo chmod +x /home/asterisk/myenv/bin/activate
-
-echo "Changing to user asterisk"
-sudo -u asterisk /bin/bash << EOF
-  # Activate the virtual environment
-  echo "Activating virtual environment myenv"
-  python3 -m venv /home/asterisk/myenv
-  source /home/asterisk/myenv/bin/activate
-
-  # Install prerequisites and set up a virtual environment
-  echo "Installing flask, pyst2, and asterisk in the virtual environment"
-  pip install flask pyst2 asterisk
-
-  # Deactivate the virtual environment
-  echo "Deactivating virtual environment"
-  deactivate
-EOF
+echo "Installing flask and pyst2 in the virtual environment"
+sudo -u asterisk /home/asterisk/myenv/bin/pip install flask pyst2
 
 echo "Making the scripts directory within /var/lib/asterisk"
 sudo mkdir -p /var/lib/asterisk/scripts
