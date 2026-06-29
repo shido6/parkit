@@ -1,11 +1,8 @@
 parkit
 ========
-**WARNING: For Patched FreePBX 15 ( Tested on 15.0.23 )** CentOS (?)
+**WARNING: For Patched FreePBX 15 ( Tested on 15.0.23 )** CentOS
 
 Parkit is an open-source directory application used to display parked calls on the CP-8851 display.
-
-TODO:
-Rewrite for Debian/Ubuntu
 
 Easy Installer
 ---------------
@@ -17,6 +14,24 @@ cd parkit && \
 sudo chmod +x runmefirst.sh && \
 sudo ./runmefirst.sh
 ```
+
+Configuration
+---------------
+Set these environment variables to configure AMI connection (defaults in parentheses):
+
+| Variable | Default |
+|----------|---------|
+| `AMI_HOST` | `192.168.10.49` |
+| `AMI_PORT` | `5038` |
+| `AMI_USER` | `admin` |
+| `AMI_PASS` | `password` |
+
+Set them in `/etc/systemd/system/my-parked-calls.service` under `[Service]`:
+```
+Environment=AMI_HOST=10.0.0.1
+Environment=AMI_PASS=your-secret
+```
+
 Usage
 ---------------
 See who's in what parking lot without leaving your phone display
@@ -36,20 +51,19 @@ Then rerun the install command
 
 Oopsy?
 -------
-
-update admin password in parkit11.py and restart the service
+Update credentials via environment variables and restart the service:
+```
+sudo systemctl edit my-parked-calls
+```
+Add credential lines under `[Service]`, save, then:
 ```
 sudo systemctl restart my-parked-calls
 ```
 
-update runmefirst.sh with current dir or an argument to use the dir specified for /parkit/
-
 Support
 -------
-
  * [Issues](https://github.com/shido6/parkit/issues)
 
 Authors
 -------
-
  * Developers: Shido Xavier <parkit+shido6@gmail.com>
