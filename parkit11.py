@@ -6,10 +6,30 @@ from flask import Flask, render_template_string, Response, request
 
 app = Flask(__name__)
 
-AMI_HOST = os.environ.get('AMI_HOST', '192.168.10.49')
-AMI_PORT = int(os.environ.get('AMI_PORT', '5038'))
-AMI_USER = os.environ.get('AMI_USER', 'admin')
-AMI_PASS = os.environ.get('AMI_PASS', 'password')
+def required_env(name):
+    value = os.environ.get(name)
+    if not value:
+        raise RuntimeError(f'{name} environment variable is required')
+    return value
+
+
+AMI_HOST = required_env('AMI_HOST')
+AMI_USER = required_env('AMI_USER')
+AMI_PASS = required_env('AMI_PASS')
+
+try:
+    AMI_PORT = int(os.environ.get('AMI_PORT', '5038'))
+except ValueError as exc:
+    raise RuntimeError('AMI_PORT must be an integer') from exc
+
+
+def parked_call_from_event(event):
+    return {
+        'CallerID': event.get('ParkeeCallerIDNum', ''),
+        'Space': event.get('ParkingSpace', ''),
+        # Asterisk's ParkedCall event uses "Parkinglot", not "ParkingLot".
+        'Lot': event.get('Parkinglot', ''),
+    }
 
 
 def get_parked_calls():
@@ -22,11 +42,7 @@ def get_parked_calls():
 
         def event_listener(event, _manager):
             if event.name.lower() == 'parkedcall':
-                calls.append({
-                    'CallerID': event.get('ParkeeCallerIDNum', ''),
-                    'Space': event.get('ParkingSpace', ''),
-                    'Lot': event.get('ParkingLot', ''),
-                })
+                calls.append(parked_call_from_event(event))
 
         manager.register_event('ParkedCall', event_listener)
         manager.send_action({'Action': 'ParkedCalls'})

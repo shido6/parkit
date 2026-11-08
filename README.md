@@ -17,20 +17,31 @@ sudo ./runmefirst.sh
 
 Configuration
 ---------------
-Set these environment variables to configure AMI connection (defaults in parentheses):
+Parkit requires an AMI account. Create a dedicated AMI user with read/call
+permissions rather than using `admin`.
 
-| Variable | Default |
-|----------|---------|
-| `AMI_HOST` | `192.168.10.49` |
-| `AMI_PORT` | `5038` |
-| `AMI_USER` | `admin` |
-| `AMI_PASS` | `password` |
+The installer creates `/etc/parkit.env` with mode `0600` if it does not exist.
+Set these values:
 
-Set them in `/etc/systemd/system/my-parked-calls.service` under `[Service]`:
+| Variable | Required | Default |
+|----------|----------|---------|
+| `AMI_HOST` | yes | none |
+| `AMI_PORT` | no | `5038` |
+| `AMI_USER` | yes | none |
+| `AMI_PASS` | yes | none |
+
+```bash
+sudoedit /etc/parkit.env
 ```
-Environment=AMI_HOST=10.0.0.1
-Environment=AMI_PASS=your-secret
+```text
+AMI_HOST=10.0.0.1
+AMI_PORT=5038
+AMI_USER=parkit
+AMI_PASS=your-secret
 ```
+
+The service reads this file through `EnvironmentFile=/etc/parkit.env`. Parkit
+will not start if `AMI_HOST`, `AMI_USER`, or `AMI_PASS` is empty.
 
 Usage
 ---------------
@@ -51,12 +62,9 @@ Then rerun the install command
 
 Oopsy?
 -------
-Update credentials via environment variables and restart the service:
+Update credentials in `/etc/parkit.env`, then restart the service:
 ```
-sudo systemctl edit my-parked-calls
-```
-Add credential lines under `[Service]`, save, then:
-```
+sudoedit /etc/parkit.env
 sudo systemctl restart my-parked-calls
 ```
 
