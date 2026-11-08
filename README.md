@@ -51,6 +51,24 @@ Press the Directory Button to see a list of Parking Lots
 Select the parking lot you wish to view
 Select the call you wish to connect to, press Dial.
 
+Phone configuration
+-------------------
+The installer updates the `<directoryURL>` in `SEP*.cnf.xml` and writes a
+one-time `SEP*.cnf.xml.parkit.bak` backup before changing each file. On a PBX
+with multiple interfaces, pass the address phones use to reach Parkit:
+
+```bash
+sudo python3 dirfix.py --ip 10.0.0.1 --dry-run
+sudo python3 dirfix.py --ip 10.0.0.1
+```
+
+If `--ip` is omitted, `dirfix.py` auto-detects an address, but it may choose
+the wrong interface. Restore the backups with:
+
+```bash
+sudo python3 dirfix.py --restore
+```
+
 Troubleshooting
 ---------------
 #### parkit directory
